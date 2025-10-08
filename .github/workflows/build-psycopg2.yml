@@ -1,0 +1,34 @@
+name: Build psycopg2 Lambda Layer (Ubuntu)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install psycopg2-binary package locally
+        run: |
+          mkdir python
+          pip install psycopg2-binary -t python/
+
+      - name: Zip the package
+        run: |
+          zip -r psycopg2-layer.zip python
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: psycopg2-layer
+          path: psycopg2-layer.zip
