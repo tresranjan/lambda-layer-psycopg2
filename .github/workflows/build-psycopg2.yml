@@ -28,7 +28,7 @@ jobs:
           zip -r psycopg2-layer.zip python
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: psycopg2-layer
           path: psycopg2-layer.zip
